@@ -2,8 +2,13 @@ package edu.hw2.task3.executor;
 
 import edu.hw2.task3.connectionManager.ConnectionManager;
 import edu.hw2.task3.exception.ConnectionException;
+import edu.hw2.task3.exception.ExecutionException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public final class PopularCommandExecutor {
+
+    private static final Logger LOGGER = LogManager.getLogger();
     private final ConnectionManager manager;
     private final int maxAttempts;
 
@@ -22,11 +27,12 @@ public final class PopularCommandExecutor {
             try (var connection = manager.getConnection()) {
                 connection.execute(command);
                 break;
-            } catch (Exception exception) {
+            } catch (ConnectionException exception) {
                 if (attempt == maxAttempts) {
-                    throw new ConnectionException(exception.getMessage(), exception);
+                    throw new ExecutionException("Execution failed: " + exception.getMessage(), exception);
                 }
-
+            } catch (Exception exception) {
+                LOGGER.error("Error in closing connection");
             }
             attempt++;
         }

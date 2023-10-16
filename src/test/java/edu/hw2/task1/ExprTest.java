@@ -149,4 +149,22 @@ class ExprTest {
             )
         );
     }
+
+    @ParameterizedTest
+    @DisplayName("Преобразование в строку")
+    @MethodSource("getArgumentsForToStringMethodChecking")
+    void checkToStringMethod(Expr expression, String expectedResult) {
+        var actualResult = expression.toString();
+        assertThat(actualResult).isEqualTo(expectedResult);
+    }
+
+    static Stream<Arguments> getArgumentsForToStringMethodChecking() {
+        return Stream.of(
+            Arguments.of(new Constant(5), "5.0"),
+            Arguments.of(new Negate(new Constant(0.001)), "-0.001"),
+            Arguments.of(new Exponent(new Constant(2), 4), "(2.0)^4.0"),
+            Arguments.of(new Addition(new Constant(123), new Constant(321)), "123.0 + 321.0"),
+            Arguments.of(new Multiplication(new Constant(999), new Constant(0)), "999.0 * 0.0")
+        );
+    }
 }

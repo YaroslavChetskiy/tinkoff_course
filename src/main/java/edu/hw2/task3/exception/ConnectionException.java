@@ -6,7 +6,4 @@ public class ConnectionException extends RuntimeException {
         super(message);
     }
 
-    public ConnectionException(String message, Throwable throwable) {
-        super(message, throwable);
-    }
 }

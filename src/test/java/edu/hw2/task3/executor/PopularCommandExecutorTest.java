@@ -2,6 +2,8 @@ package edu.hw2.task3.executor;
 
 import edu.hw2.task3.connectionManager.FaultyConnectionManager;
 import edu.hw2.task3.exception.ConnectionException;
+import edu.hw2.task3.exception.ExecutionException;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,9 +17,11 @@ class PopularCommandExecutorTest {
 
     @Test
     @DisplayName("Выброс исключения при достижении maxAttempts")
-    void throwConnectionExceptionIfMaxAttemptsReachedInUpdatingPackages() {
+    void throwExecutionExceptionIfMaxAttemptsReachedInUpdatingPackages() {
         var popularCommandExecutor =
             new PopularCommandExecutor(new FaultyConnectionManager(ERROR_FREQUENCY), MAX_ATTEMPTS);
-        assertThrows(ConnectionException.class, popularCommandExecutor::updatePackages);
+        var exception = assertThrows(ExecutionException.class, popularCommandExecutor::updatePackages);
+        Assertions.assertThat(exception.getMessage())
+            .isEqualTo("Execution failed: " + exception.getCause().getMessage());
     }
 }
