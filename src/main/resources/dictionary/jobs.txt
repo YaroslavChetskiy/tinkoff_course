@@ -1,0 +1,10 @@
+policeman
+receptionist
+nurse
+mechanic
+doctor
+artist
+dancer
+cashier
+firefighter
+scientist

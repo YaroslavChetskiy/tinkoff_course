@@ -1,0 +1,8 @@
+chicken
+hamburger
+chocolate
+noodles
+baguette
+apple
+sandwich
+peas
