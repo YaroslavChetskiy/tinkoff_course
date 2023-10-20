@@ -7,13 +7,16 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import java.util.Scanner;
 import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ConsoleHangmanTest {
 
     private final Session session = new Session("dummy", 6);
-    private final ConsoleHangman consoleHangman = new ConsoleHangman();
+
+    private final UserInputReader userInputReader = new UserInputReader(new Scanner(System.in));
+    private final ConsoleHangman consoleHangman = new ConsoleHangman(userInputReader);
 
     @ParameterizedTest
     @DisplayName("Проверка попытки угадывания")

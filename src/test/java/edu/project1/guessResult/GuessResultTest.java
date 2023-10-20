@@ -1,5 +1,6 @@
 package edu.project1.guessResult;
 
+import edu.project1.session.GameStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -156,6 +157,39 @@ class GuessResultTest {
             Arguments.of(
                 new GuessResult.Retry(new char[] {'_', '_'}, 2, 8, "dummy"),
                 8
+            )
+        );
+    }
+
+    @ParameterizedTest
+    @DisplayName("Получение статуса игры")
+    @MethodSource("getArgumentsForGetStatusTest")
+    void checkGetStatus(GuessResult guessResult, GameStatus expectedResult) {
+        var actualResult = guessResult.getStatus();
+        assertThat(actualResult).isEqualTo(expectedResult);
+    }
+
+    static Stream<Arguments> getArgumentsForGetStatusTest() {
+        return Stream.of(
+            Arguments.of(
+                new GuessResult.Defeat(new char[] {'_', '_'}, 1, 6, "dummy"),
+                GameStatus.FINISHED
+            ),
+            Arguments.of(
+                new GuessResult.Win(new char[] {'a', 'b'}, 0, 5, "dummy"),
+                GameStatus.FINISHED
+            ),
+            Arguments.of(
+                new GuessResult.SuccessfulGuess(new char[] {'_', 'b'}, 2, 3, "dummy"),
+                GameStatus.IN_PROGRESS
+            ),
+            Arguments.of(
+                new GuessResult.FailedGuess(new char[] {'_', '_'}, 3, 99, "dummy"),
+                GameStatus.IN_PROGRESS
+            ),
+            Arguments.of(
+                new GuessResult.Retry(new char[] {'_', '_'}, 2, 8, "dummy"),
+                GameStatus.IN_PROGRESS
             )
         );
     }

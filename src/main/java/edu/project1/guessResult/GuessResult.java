@@ -1,5 +1,6 @@
 package edu.project1.guessResult;
 
+import edu.project1.session.GameStatus;
 import org.jetbrains.annotations.NotNull;
 
 public sealed interface GuessResult {
@@ -11,6 +12,8 @@ public sealed interface GuessResult {
     int getAttempt();
 
     int getMaxAttempts();
+
+    GameStatus getStatus();
 
     @NotNull
     String getMessage();
@@ -30,6 +33,11 @@ public sealed interface GuessResult {
         @Override
         public int getMaxAttempts() {
             return maxAttempts;
+        }
+
+        @Override
+        public GameStatus getStatus() {
+            return GameStatus.FINISHED;
         }
 
         @Override
@@ -62,6 +70,11 @@ public sealed interface GuessResult {
         }
 
         @Override
+        public GameStatus getStatus() {
+            return GameStatus.FINISHED;
+        }
+
+        @Override
         public @NotNull String getMessage() {
             return """
                 WIN:
@@ -87,6 +100,11 @@ public sealed interface GuessResult {
         @Override
         public int getMaxAttempts() {
             return maxAttempts;
+        }
+
+        @Override
+        public GameStatus getStatus() {
+            return GameStatus.IN_PROGRESS;
         }
 
         @Override
@@ -116,6 +134,11 @@ public sealed interface GuessResult {
         }
 
         @Override
+        public GameStatus getStatus() {
+            return GameStatus.IN_PROGRESS;
+        }
+
+        @Override
         public @NotNull String getMessage() {
             return """
                 Oh, you missed! Try again!
@@ -140,6 +163,11 @@ public sealed interface GuessResult {
         @Override
         public int getMaxAttempts() {
             return maxAttempts;
+        }
+
+        @Override
+        public GameStatus getStatus() {
+            return GameStatus.IN_PROGRESS;
         }
 
         @Override

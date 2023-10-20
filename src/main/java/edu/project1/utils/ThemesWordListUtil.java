@@ -16,8 +16,15 @@ public final class ThemesWordListUtil {
 
     private static final Map<Theme, List<String>> WORDS_MAP = new HashMap<>();
 
+    private ThemesWordListUtil() {
+    }
+
     static {
         initWordsMap();
+    }
+
+    public static List<String> getWordList(Theme theme) {
+        return WORDS_MAP.get(theme);
     }
 
     private static void initWordsMap() {
@@ -40,10 +47,4 @@ public final class ThemesWordListUtil {
         }
     }
 
-    private ThemesWordListUtil() {
-    }
-
-    public static List<String> getWordList(Theme theme) {
-        return WORDS_MAP.get(theme);
-    }
 }
