@@ -43,7 +43,7 @@ class UserInputReaderTest {
             Arguments.of(new Scanner("0"), Theme.ANIMALS),
             Arguments.of(new Scanner("-1 1"), Theme.HOME),
             Arguments.of(new Scanner("fdjkfdjk dskdksd 2"), Theme.FOOD),
-            Arguments.of(new Scanner("99 4 3"), Theme.JOBS)
+            Arguments.of(new Scanner("99 6 3"), Theme.JOBS)
         );
     }
 

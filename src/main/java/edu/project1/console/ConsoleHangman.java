@@ -7,7 +7,6 @@ import edu.project1.session.GameStatus;
 import edu.project1.session.Session;
 import static edu.project1.utils.ConsoleWriterUtil.printMessage;
 import static edu.project1.utils.ConsoleWriterUtil.printThemes;
-import static edu.project1.utils.ThemesWordListUtil.getWordList;
 
 
 public class ConsoleHangman {
@@ -24,25 +23,23 @@ public class ConsoleHangman {
 
     public void run() {
         printMessage("HANGMAN GAME STARTED!");
-        while (true) {
+        boolean startNewGame = true;
+        while (startNewGame) {
             printThemes();
-            Dictionary dictionary = new HangmanDictionary(getWordList(userInputReader.chooseTheme()));
+            Dictionary dictionary = new HangmanDictionary(userInputReader.chooseTheme());
             String answer = dictionary.getRandomWord();
             Session session = new Session(answer, MAX_ATTEMPTS);
             printMessage("Let's start! The word has length: " + answer.length());
-            while (true) {
+            boolean gameInProgress = true;
+            while (gameInProgress) {
                 printMessage("Guess the letter or give up with '/quit' command: ");
                 String guess = userInputReader.getInput();
                 GuessResult guessResult = tryGuess(session, guess.toLowerCase());
                 printState(guessResult);
-                if (guessResult.getStatus() == GameStatus.FINISHED) {
-                    break;
-                }
+                gameInProgress = guessResult.getStatus() == GameStatus.IN_PROGRESS;
             }
             String startNewGameStatement = userInputReader.getInput();
-            if (!startNewGameStatement.matches("(y|yes)")) {
-                break;
-            }
+            startNewGame = startNewGameStatement.matches("(y|yes)");
         }
         printMessage("Goodbye!");
     }

@@ -5,4 +5,6 @@ public enum Theme {
     HOME,
     FOOD,
     JOBS,
+    COUNTRIES, // последние две для тестов
+    CLOTHES
 }
