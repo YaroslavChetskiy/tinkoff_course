@@ -1,9 +1,9 @@
 package edu.hw3.task4;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+@SuppressWarnings("MagicNumber")
 public final class Task4 {
 
     private static final int MAX_ARABIC_NUMBER = 3999;
