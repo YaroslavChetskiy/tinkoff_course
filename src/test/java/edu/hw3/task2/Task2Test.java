@@ -33,7 +33,7 @@ class Task2Test {
                 "((())())(()(()()))",
                 List.of("((())())", "(()(()()))")
             ),
-            Arguments.of(")))((()))", List.of("((()))")),
+            Arguments.of(")))((()))", List.of()),
             Arguments.of("))((", List.of()),
             Arguments.of(null, List.of()),
             Arguments.of("", List.of())

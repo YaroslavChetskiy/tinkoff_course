@@ -18,19 +18,18 @@ public final class Task2 {
         var currentCluster = new StringBuilder();
         for (char c : inputString.toCharArray()) {
             if (c == ')' && stack.isEmpty()) {
-                continue;
+                // так как нельзя разбить на сбалансированные кластеры
+                return List.of();
             }
             currentCluster.append(c);
             if (c == '(') {
                 stack.add(c);
-            }
-            if (c == ')') {
+            } else if (c == ')') {
                 stack.pop();
-                if (!stack.isEmpty()) {
-                    continue;
+                if (stack.isEmpty()) {
+                    resultList.add(currentCluster.toString());
+                    currentCluster.setLength(0);
                 }
-                resultList.add(currentCluster.toString());
-                currentCluster.setLength(0);
             }
         }
         return resultList;
