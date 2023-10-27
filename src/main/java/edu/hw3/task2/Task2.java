@@ -10,10 +10,10 @@ public final class Task2 {
     }
 
     public static List<String> clusterBrackets(String inputString) {
-        List<String> resultList = new ArrayList<>();
         if (inputString == null) {
-            return resultList;
+            return List.of();
         }
+        List<String> resultList = new ArrayList<>();
         Stack<Character> stack = new Stack<>();
         var currentCluster = new StringBuilder();
         for (char c : inputString.toCharArray()) {
