@@ -1,9 +1,11 @@
 package edu.hw4;
 
-import edu.hw4.Animal.Sex;
-import edu.hw4.Animal.Type;
+import edu.hw4.animal.Animal;
+import edu.hw4.animal.Sex;
+import edu.hw4.animal.Type;
 import edu.hw4.validator.ValidationError;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -14,29 +16,30 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
-import static edu.hw4.Animal.Sex.F;
-import static edu.hw4.Animal.Sex.M;
-import static edu.hw4.AnimalUtil.checkSpidersBiteOftenThanDogs;
-import static edu.hw4.AnimalUtil.containsDogBiggerThanKCentimeters;
-import static edu.hw4.AnimalUtil.countPaws;
-import static edu.hw4.AnimalUtil.getAnimalsNamesWithInvalidFieldNames;
-import static edu.hw4.AnimalUtil.getAnimalsNamesWithValidationErrors;
-import static edu.hw4.AnimalUtil.getAnimalsWithMoreThanTwoWordsName;
-import static edu.hw4.AnimalUtil.getAnimalsWithNotEqualAgeAndPawsCount;
-import static edu.hw4.AnimalUtil.getCanBitesAndHeightGreaterThanHundredCmAnimal;
-import static edu.hw4.AnimalUtil.getHeaviestFishInSeveralLists;
-import static edu.hw4.AnimalUtil.getKthOldestAnimal;
-import static edu.hw4.AnimalUtil.getLargerInNumberAnimalSex;
-import static edu.hw4.AnimalUtil.getLongestNameAnimal;
-import static edu.hw4.AnimalUtil.getMaxWeightAndHeightLessThanKAnimal;
-import static edu.hw4.AnimalUtil.getMaxWeightAnimalsForType;
-import static edu.hw4.AnimalUtil.getSummaryWeightOfAnimalsWithAgeBetween;
-import static edu.hw4.AnimalUtil.getTypeCounts;
-import static edu.hw4.AnimalUtil.getWeightGreaterThanHeightAnimalsCount;
-import static edu.hw4.AnimalUtil.sortByHeight;
-import static edu.hw4.AnimalUtil.sortByTypeThenSexThenName;
-import static edu.hw4.AnimalUtil.sortByWeightReversedAndLimit;
+import static edu.hw4.util.AnimalUtil.checkSpidersBiteOftenThanDogs;
+import static edu.hw4.util.AnimalUtil.containsDogBiggerThanKCentimeters;
+import static edu.hw4.util.AnimalUtil.countPaws;
+import static edu.hw4.util.AnimalUtil.getAnimalsNamesWithInvalidFieldNames;
+import static edu.hw4.util.AnimalUtil.getAnimalsNamesWithValidationErrors;
+import static edu.hw4.util.AnimalUtil.getAnimalsWithMoreThanTwoWordsName;
+import static edu.hw4.util.AnimalUtil.getAnimalsWithNotEqualAgeAndPawsCount;
+import static edu.hw4.util.AnimalUtil.getCanBitesAndHeightGreaterThanHundredCmAnimal;
+import static edu.hw4.util.AnimalUtil.getHeaviestFishInSeveralLists;
+import static edu.hw4.util.AnimalUtil.getKthOldestAnimal;
+import static edu.hw4.util.AnimalUtil.getLargerInNumberAnimalSex;
+import static edu.hw4.util.AnimalUtil.getLongestNameAnimal;
+import static edu.hw4.util.AnimalUtil.getMaxWeightAndHeightLessThanKAnimal;
+import static edu.hw4.util.AnimalUtil.getMaxWeightAnimalsForType;
+import static edu.hw4.util.AnimalUtil.getSummaryWeightOfAnimalsWithAgeBetween;
+import static edu.hw4.util.AnimalUtil.getTypeCounts;
+import static edu.hw4.util.AnimalUtil.getWeightGreaterThanHeightAnimalsCount;
+import static edu.hw4.util.AnimalUtil.sortByHeight;
+import static edu.hw4.util.AnimalUtil.sortByTypeThenSexThenName;
+import static edu.hw4.util.AnimalUtil.sortByWeightReversedAndLimit;
+import static edu.hw4.animal.Sex.F;
+import static edu.hw4.animal.Sex.M;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class AnimalUtilTest {
     // CAT, DOG, BIRD, FISH, SPIDER
@@ -144,7 +147,6 @@ class AnimalUtilTest {
     // Task 5
     static Stream<Arguments> getArgumentsForGetLargerInNumberAnimalSexTest() {
         return Stream.of(
-            Arguments.of(List.of(), null),
             Arguments.of(List.of(BIRD, CAT, FISH), F),
             Arguments.of(List.of(CAT, CAT, DOG, CAT, DOG), M),
             Arguments.of(List.of(FISH, CAT, BIRD, SPIDER, DOG), F)
@@ -157,6 +159,12 @@ class AnimalUtilTest {
     void testGetLargerInNumberAnimalSex(List<Animal> animals, Sex expectedResult) {
         var actualResult = getLargerInNumberAnimalSex(animals);
         assertThat(actualResult).isEqualTo(expectedResult);
+    }
+
+    @Test
+    @DisplayName("Выброс исключения при получении самого частого пола в пустом списке")
+    void throwIllegalArgumentExceptionIfListIsEmpty() {
+        assertThrows(IllegalArgumentException.class, () -> getLargerInNumberAnimalSex(List.of()));
     }
 
     // Task 6

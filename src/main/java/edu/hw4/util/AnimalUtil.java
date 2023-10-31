@@ -1,15 +1,17 @@
-package edu.hw4;
+package edu.hw4.util;
 
-import edu.hw4.Animal.Sex;
+import edu.hw4.animal.Animal;
+import edu.hw4.animal.Sex;
+import edu.hw4.animal.Type;
 import edu.hw4.validator.ValidationError;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import static edu.hw4.Animal.Type.DOG;
-import static edu.hw4.Animal.Type.FISH;
-import static edu.hw4.Animal.Type.SPIDER;
+import static edu.hw4.animal.Type.DOG;
+import static edu.hw4.animal.Type.FISH;
+import static edu.hw4.animal.Type.SPIDER;
 import static java.util.Comparator.comparing;
 import static java.util.Comparator.reverseOrder;
 import static java.util.function.Function.identity;
@@ -41,7 +43,7 @@ public final class AnimalUtil {
     }
 
     // Task 3
-    public static Map<Animal.Type, Long> getTypeCounts(List<Animal> animals) {
+    public static Map<Type, Long> getTypeCounts(List<Animal> animals) {
         return animals.stream()
             .collect(groupingBy(Animal::type, counting()));
     }
@@ -62,11 +64,11 @@ public final class AnimalUtil {
             .entrySet().stream()
             .max(Map.Entry.comparingByValue())
             .map(Map.Entry::getKey)
-            .orElse(null);
+            .orElseThrow(() -> new IllegalArgumentException("Invalid input animal list"));
     }
 
     // Task 6
-    public static Map<Animal.Type, Animal> getMaxWeightAnimalsForType(List<Animal> animals) {
+    public static Map<Type, Animal> getMaxWeightAnimalsForType(List<Animal> animals) {
         return animals.stream()
             .collect(toMap(
                 Animal::type,
@@ -114,10 +116,9 @@ public final class AnimalUtil {
 
     // Task 12
     public static Integer getWeightGreaterThanHeightAnimalsCount(List<Animal> animals) {
-        return animals.stream()
+        return (int) animals.stream()
             .filter(animal -> animal.weight() > animal.height())
-            .toList() // чтобы получить Integer как в условии, если Long - то просто count()
-            .size();
+            .count();
     }
 
     // Task 13
@@ -182,16 +183,33 @@ public final class AnimalUtil {
     }
 
     // Task 20
+    // Я просто подумал, что суть задания сделать Map<String, Set<ValidationError> -> Map<String,String>,
+    // при этом на этот раз значением выступает не список ошибок,
+    // а список названий полей, в которых есть ошибка, соединённые в строку через запятую
+    // Немного оптимизировал функцию 20 задачи:
     public static Map<String, String> getAnimalsNamesWithInvalidFieldNames(List<Animal> animals) {
         return getAnimalsNamesWithValidationErrors(animals)
             .entrySet().stream()
-            .map(entry -> Map.entry(
-                entry.getKey(),
-                entry.getValue().stream()
+            .collect(toMap(
+                Map.Entry::getKey,
+                entry -> entry.getValue().stream()
                     .map(ValidationError::fieldName)
                     .collect(joining(", "))
-            ))
-            .collect(toMap(Map.Entry::getKey, Map.Entry::getValue));
+            ));
     }
+
+    /*
+    Если же нужно просто переписать функцию из 19 задачи, то вот так
+    public static Map<String, String> getAnimalsNamesWithInvalidFieldNames(List<Animal> animals) {
+        return animals.stream()
+            .filter(animal -> !animal.validate().isValid())
+            .collect(toMap(
+                animal -> animal.name() == null ? "NoName" : animal.name(),
+                animal -> animal.validate().getErrors().stream()
+                    .map(ValidationError::fieldName)
+                    .collect(joining(", "))
+            ));
+    }
+     */
 
 }

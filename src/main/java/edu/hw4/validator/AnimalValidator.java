@@ -1,6 +1,6 @@
 package edu.hw4.validator;
 
-import edu.hw4.Animal;
+import edu.hw4.animal.Animal;
 import static java.util.Objects.isNull;
 
 public class AnimalValidator implements Validator<Animal> {
