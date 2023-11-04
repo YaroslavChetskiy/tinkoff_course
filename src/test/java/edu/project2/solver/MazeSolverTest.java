@@ -13,15 +13,17 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MazeSolverTest {
 
-    private static final MazeSolver MAZE_SOLVER = DfsSolver.getInstance();
+    private static final List<MazeSolver> MAZE_SOLVERS = List.of(DfsSolver.getInstance(), BfsSolver.getInstance());
 
     @ParameterizedTest
     @DisplayName("Выброс исключения при невалидных точках начала и конца")
     @MethodSource("getArgumentsForInvalidCoordinatesTest")
     void throwIllegalArgumentExceptionIfCoordinatesIsInvalid(Coordinate start, Coordinate end) {
-        var exception =
-            assertThrows(IllegalArgumentException.class, () -> MAZE_SOLVER.solve(TEST_MAZE, start, end));
-        assertThat(exception.getMessage()).isEqualTo("Invalid coordinates");
+        for (MazeSolver mazeSolver : MAZE_SOLVERS) {
+            var exception =
+                assertThrows(IllegalArgumentException.class, () -> mazeSolver.solve(TEST_MAZE, start, end));
+            assertThat(exception.getMessage()).isEqualTo("Invalid coordinates");
+        }
     }
 
     static Stream<Arguments> getArgumentsForInvalidCoordinatesTest() {
@@ -49,8 +51,10 @@ public class MazeSolverTest {
     @DisplayName("Получение ожидаемого пути")
     @MethodSource("getArgumentsForGetCorrectPathTest")
     void getCorrectPath(Coordinate start, Coordinate end, List<Coordinate> expectedResult) {
-        var actualResult = MAZE_SOLVER.solve(TEST_MAZE, start, end);
-        assertThat(actualResult).isEqualTo(expectedResult);
+        for (MazeSolver mazeSolver : MAZE_SOLVERS) {
+            var actualResult = mazeSolver.solve(TEST_MAZE, start, end);
+            assertThat(actualResult).isEqualTo(expectedResult);
+        }
     }
 
     static Stream<Arguments> getArgumentsForGetCorrectPathTest() {

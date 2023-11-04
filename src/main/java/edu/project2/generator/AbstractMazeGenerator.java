@@ -19,7 +19,7 @@ public abstract class AbstractMazeGenerator implements MazeGenerator {
     protected static final Coordinate START_CELL_COORDINATE = new Coordinate(1, 1);
 
     // Чтобы генерировался каждый раз новый лабиринт, передаю ещё и seed
-    protected static final Random RANDOM = new Random(/*System.currentTimeMillis()*/);
+    protected static final Random RANDOM = new Random(System.currentTimeMillis());
 
     protected boolean isInsideCell(int x, int y, int height, int width) {
         return x >= START_CELL_COORDINATE.column() && y >= START_CELL_COORDINATE.row()
