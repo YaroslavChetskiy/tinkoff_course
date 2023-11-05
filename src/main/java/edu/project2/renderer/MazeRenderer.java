@@ -9,7 +9,7 @@ import java.util.Map;
 public class MazeRenderer implements Renderer {
 
     private static final Character PATH_SYMBOL = '·';
-    private static final Character END_LINE_SYMBOL = '\n';
+    private static final String LINE_SEPARATOR = System.lineSeparator();
 
     private static final MazeRenderer INSTANCE = new MazeRenderer();
     private static final Map<Type, Character> TYPE_TO_SYMBOLIC_MAP = Map.of(
@@ -45,7 +45,7 @@ public class MazeRenderer implements Renderer {
                     stringBuilder.append(TYPE_TO_SYMBOLIC_MAP.get(cell.type()));
                 }
             }
-            stringBuilder.append(END_LINE_SYMBOL);
+            stringBuilder.append(LINE_SEPARATOR);
         }
         return stringBuilder.toString();
     }

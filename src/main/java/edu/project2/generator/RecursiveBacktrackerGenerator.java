@@ -9,24 +9,25 @@ import static edu.project2.maze.Type.PASSAGE;
 
 public class RecursiveBacktrackerGenerator extends AbstractMazeGenerator {
 
-    private static final RecursiveBacktrackerGenerator INSTANCE = new RecursiveBacktrackerGenerator();
+    private final List<Coordinate> visitedCells;
 
-    // чтобы не передавать их постоянно в функции
-    private List<Coordinate> visitedCells;
-    private Maze generatedMaze;
-
-    private RecursiveBacktrackerGenerator() {
+    public RecursiveBacktrackerGenerator(int height, int width) {
+        this(height, width, DEFAULT_INTEGER_GENERATOR);
     }
 
-    public static RecursiveBacktrackerGenerator getInstance() {
-        return INSTANCE;
+    public RecursiveBacktrackerGenerator(int height, int width, IntegerGenerator integerGenerator) {
+        super(height, width, integerGenerator);
+        visitedCells = new ArrayList<>();
     }
 
     @Override
-    public Maze generate(int height, int width) {
-        Cell[][] grid = getEmptyGrid(height, width);
-        visitedCells = new ArrayList<>();
-        generatedMaze = new Maze(height, width, grid);
+    public Maze generate() {
+        generatedMaze = new Maze(
+            generatedMaze.getHeight(),
+            generatedMaze.getWidth(),
+            getEmptyGrid(generatedMaze.getHeight(), generatedMaze.getWidth())
+        );
+        visitedCells.clear();
         carvePassages(START_CELL_COORDINATE);
         return generatedMaze;
     }
@@ -36,7 +37,7 @@ public class RecursiveBacktrackerGenerator extends AbstractMazeGenerator {
         generatedMaze.getGrid()[currentCoords.row()][currentCoords.column()] = new Cell(currentCoords, PASSAGE);
         List<Coordinate> unvisitedNeighbours = getNeighbours(currentCoords, generatedMaze);
         while (!unvisitedNeighbours.isEmpty()) {
-            int randomIndex = RANDOM.nextInt(unvisitedNeighbours.size());
+            int randomIndex = integerGenerator.getRandomValue(0, unvisitedNeighbours.size());
             Coordinate randomNeighbour = unvisitedNeighbours.remove(randomIndex);
             if (!visitedCells.contains(randomNeighbour)) {
                 int wallRow = (currentCoords.row() + randomNeighbour.row()) / 2;

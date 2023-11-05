@@ -6,7 +6,6 @@ import edu.project2.maze.Maze;
 import edu.project2.maze.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import static edu.project2.maze.Type.WALL;
 
 public abstract class AbstractMazeGenerator implements MazeGenerator {
@@ -17,9 +16,21 @@ public abstract class AbstractMazeGenerator implements MazeGenerator {
     private static final int MAX_SIDE_SIZE = 121;
 
     protected static final Coordinate START_CELL_COORDINATE = new Coordinate(1, 1);
+    protected static final IntegerGenerator DEFAULT_INTEGER_GENERATOR =
+        new IntegerGenerator(System.currentTimeMillis());
 
-    // Чтобы генерировался каждый раз новый лабиринт, передаю ещё и seed
-    protected static final Random RANDOM = new Random(System.currentTimeMillis());
+    protected final IntegerGenerator integerGenerator;
+    protected Maze generatedMaze;
+
+    protected AbstractMazeGenerator(int height, int width) {
+        this(height, width, DEFAULT_INTEGER_GENERATOR);
+    }
+
+    protected AbstractMazeGenerator(int height, int width, IntegerGenerator integerGenerator) {
+        this.integerGenerator = integerGenerator;
+        Cell[][] grid = getEmptyGrid(height, width);
+        this.generatedMaze = new Maze(height, width, grid);
+    }
 
     protected boolean isInsideCell(int x, int y, int height, int width) {
         return x >= START_CELL_COORDINATE.column() && y >= START_CELL_COORDINATE.row()

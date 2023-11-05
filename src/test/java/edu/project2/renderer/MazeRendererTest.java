@@ -58,7 +58,7 @@ public class MazeRendererTest {
                     █████ █
                     █     █
                     ███████
-                    """
+                    """.replaceAll("\n", System.lineSeparator())
             ),
             Arguments.of(
                 List.of(
@@ -84,7 +84,7 @@ public class MazeRendererTest {
                     █████·█
                     █·····█
                     ███████
-                    """
+                    """.replaceAll("\n", System.lineSeparator())
             )
         );
     }

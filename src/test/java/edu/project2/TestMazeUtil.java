@@ -16,7 +16,7 @@ public class TestMazeUtil {
         █████ █
         █     █
         ███████
-        """;
+        """.replace("\n", System.lineSeparator());
 
     public static Maze TEST_MAZE;
 
@@ -28,7 +28,7 @@ public class TestMazeUtil {
         Cell[][] grid = new Cell[MAZE_SIDE_SIZE][MAZE_SIDE_SIZE];
         int y = 0;
         for (int x = 0; x < MAZE_SIDE_SIZE; x++) {
-            switch (MAZE_PATTERN.charAt(y * (MAZE_SIDE_SIZE + 1) + x)) {
+            switch (MAZE_PATTERN.charAt(y * (MAZE_SIDE_SIZE + System.lineSeparator().length()) + x)) {
                 case '█' -> grid[y][x] = new Cell(new Coordinate(y, x), Type.WALL);
                 case ' ' -> grid[y][x] = new Cell(new Coordinate(y, x), Type.PASSAGE);
             }
