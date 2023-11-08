@@ -14,8 +14,8 @@ public class HatchDateParser extends DateParser {
         String[] splitDate = date.split("-");
         // думаю, что в этом случае только запись дней может быть разной длины,
         // т.к иначе это было бы слишком похоже на 2 способ указания даты
-        splitDate[2] = splitDate[2].length() == 1 ?
-            "0" + splitDate[2]
+        splitDate[2] = splitDate[2].length() == 1
+            ? "0" + splitDate[2]
             : splitDate[2];
         return Optional.of(LocalDate.parse(String.join("-", splitDate)));
     }

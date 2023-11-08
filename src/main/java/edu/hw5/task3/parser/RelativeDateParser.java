@@ -10,7 +10,7 @@ public class RelativeDateParser extends DateParser {
         if (date == null) {
             return Optional.empty();
         }
-        return switch(date.toLowerCase()) {
+        return switch (date.toLowerCase()) {
             case "tomorrow" -> Optional.of(LocalDate.now().plusDays(1L));
             case "today" -> Optional.of(LocalDate.now());
             case "yesterday" -> Optional.of(LocalDate.now().minusDays(1L));

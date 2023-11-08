@@ -7,7 +7,7 @@ public final class DateParserChainUtil {
     private DateParserChainUtil() {
     }
 
-    public static DateParser buildChain(DateParser ... parsers) {
+    public static DateParser buildChain(DateParser... parsers) {
         DateParser temp = parsers[0];
         for (int i = 1; i < parsers.length; i++) {
             temp.setNextDateParser(parsers[i]);
