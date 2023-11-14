@@ -17,6 +17,7 @@ public class HackerNews {
     private static final String TITLE_REGEX = "\"title\":\"(.+?)\"";
     public static final String HEADER_NAME = "Accept";
     public static final String HEADER_VALUE = "application/json";
+    public static final String EMPTY_LINE = "";
 
     private final HttpClient client;
 
@@ -52,13 +53,13 @@ public class HackerNews {
 
             var response = client.send(request, BodyHandlers.ofString());
             if (response == null) {
-                return "";
+                return EMPTY_LINE;
             }
             Pattern pattern = Pattern.compile(TITLE_REGEX);
             Matcher matcher = pattern.matcher(response.body());
-            return matcher.find() ? matcher.group(1) : "";
+            return matcher.find() ? matcher.group(1) : EMPTY_LINE;
         } catch (URISyntaxException | IOException | InterruptedException e) {
-            return "";
+            return EMPTY_LINE;
         }
     }
 }
