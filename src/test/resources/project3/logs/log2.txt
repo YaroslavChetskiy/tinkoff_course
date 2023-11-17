@@ -1,0 +1,3 @@
+93.180.71.3 - - [17/May/2015:07:05:32 +0000] "GET /downloads/product_1 HTTP/1.1" 404 3 "-" "Debian APT-HTTP/1.3 (0.8.16~exp12ubuntu10.21)"
+93.180.71.3 - - [17/May/2015:08:05:23 +0000] "GET /downloads/product_1 HTTP/1.1" 503 1 "-" "Debian APT-HTTP/1.3 (0.8.16~exp12ubuntu10.21)"
+93.180.71.3 - - [19/May/2015:23:05:23 +0000] "POST /downloads/product_2 HTTP/1.1" 404 2 "-" "Debian APT-HTTP/1.3 (0.8.16~exp12ubuntu10.21)"
