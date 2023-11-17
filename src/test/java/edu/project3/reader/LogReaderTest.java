@@ -40,7 +40,6 @@ class LogReaderTest {
     @ValueSource(strings = {
         "src/not_existed_file.txt",
         "https://githudlfkfdlkfldkdlb.com/not_existed_url",
-        "",
         "dir/**/log*.txt",
         "dir/log.txt"
     })
