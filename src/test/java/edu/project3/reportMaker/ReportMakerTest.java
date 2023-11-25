@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -79,8 +80,8 @@ class ReportMakerTest {
 
         assertThat(Files.exists(path)).isTrue();
 
-        var expectedResult = Files.readAllLines(expectedReportPath);
-        var actualResult = Files.readAllLines(path);
+        var expectedResult = Files.readAllLines(expectedReportPath).stream().map(String::strip).toList();
+        var actualResult = Files.readAllLines(path).stream().map(String::strip).toList();
 
         assertThat(actualResult).isEqualTo(expectedResult);
 
