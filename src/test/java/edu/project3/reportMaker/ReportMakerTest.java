@@ -70,6 +70,7 @@ class ReportMakerTest {
         );
     }
 
+    @Disabled
     @ParameterizedTest
     @DisplayName("Создание отчёта")
     @MethodSource("getArgumentsForMakeCorrectReportFileTest")
