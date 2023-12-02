@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
-import java.util.Optional;
 
 public class QuoteClient implements Client {
 
@@ -34,7 +33,7 @@ public class QuoteClient implements Client {
     }
 
     @Override
-    public Optional<byte[]> waitResponse() {
+    public byte[] waitResponse() {
         try {
             buffer.clear();
             var bytesRead = client.read(buffer);
@@ -42,9 +41,9 @@ public class QuoteClient implements Client {
                 buffer.flip();
                 byte[] response = new byte[bytesRead];
                 buffer.get(response);
-                return Optional.of(response);
+                return response;
             }
-            return Optional.empty();
+            return new byte[0];
         } catch (IOException e) {
             throw new ClientException("Could not read response", e);
         }

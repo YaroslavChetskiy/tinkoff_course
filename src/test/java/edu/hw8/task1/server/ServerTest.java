@@ -30,8 +30,8 @@ class ServerTest {
                 client.start();
                 client.send(TEST_KEY_WORD.getBytes());
                 var response = client.waitResponse();
-                assertThat(response).isPresent();
-                var actualResult = new String(response.get());
+                assertThat(response).isNotEmpty();
+                var actualResult = new String(response);
                 assertThat(actualResult).isEqualTo(TEST_QUOTE);
             } catch (IOException e) {
                 throw new RuntimeException(e);
