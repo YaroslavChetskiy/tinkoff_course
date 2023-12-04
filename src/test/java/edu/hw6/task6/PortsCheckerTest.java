@@ -30,7 +30,7 @@ class PortsCheckerTest {
     @Test
     @DisplayName("Проверка статуса порта, если его занять")
     void getPortStatusIfItIsOccupied() throws IOException {
-        var port = 8080;
+        var port = 7777;
         assertThat(checkTcp(port)).isFalse();
         try (var serverSocket = new ServerSocket(port)) {
             var actualResult = checkTcp(port);
