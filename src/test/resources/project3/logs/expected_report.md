@@ -1,4 +1,4 @@
-## Log statistics report : 2023-12-10
+## Log statistics report : 2023-12-08
 
 ### Общая информация
 |              Метрика              | Значение |
