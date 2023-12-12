@@ -1,0 +1,48 @@
+IMAGE: 1920x1080 | SAMPLES: 200_000 | AFFINE_COUNT: 4 | ITERATIONS: 1_500 | SYMMETRY: 1
+================
+Threads: 1, Seconds: 31,413
+
+Threads: 2, Seconds: 23,642
+
+Threads: 3, Seconds: 15,707
+
+Threads: 4, Seconds: 12,923
+
+Threads: 5, Seconds: 9,971
+
+Threads: 6, Seconds: 9,433
+
+Threads: 7, Seconds: 8,824
+
+Threads: 8, Seconds: 6,432
+
+Threads: 9, Seconds: 7,051
+
+Threads: 10, Seconds: 7,508
+
+Threads: 10, Seconds: 7,747
+
+Threads: 11, Seconds: 6,333
+
+Threads: 12, Seconds: 5,844
+
+Threads: 13, Seconds: 5,953
+
+Threads: 14, Seconds: 5,418
+
+Threads: 15, Seconds: 5,571
+
+Threads: 16, Seconds: 5,712
+
+Threads: 17, Seconds: 7,739
+
+Threads: 18, Seconds: 9,812
+
+Threads: 19, Seconds: 5,557
+
+Threads: 20, Seconds: 5,470
+================
+
+AVERAGE ACCELERATION: 4.09
+
+
